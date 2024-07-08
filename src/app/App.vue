@@ -3,7 +3,7 @@ import { LoginPage } from '@/pages/login'
 import { TodoPage } from '@/pages/todo'
 import { getUserInfo, userStore } from '@/shared/store'
 
-// it is here because if i made it in pinia loading time was so big that i could see login screen before todolist
+// it's here because if i made it in pinia, loading time was so big that i could see login screen before todolist
 const jwtUser = getUserInfo()
 const user = userStore()
 if (jwtUser.login) {

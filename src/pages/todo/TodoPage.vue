@@ -38,7 +38,7 @@ const logout = () => {
     <q-btn flat @click="logout"> Logout </q-btn>
   </Header>
   <q-page-container>
-    <q-page class="fit flexflex-column">
+    <q-page class="fit">
       <AddTodo @add="handleAdd" class="self-center" />
       <TodoLists
         @show-info="showPopup"

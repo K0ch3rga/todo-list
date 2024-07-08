@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getTodosByUser, ItemListTodo, patchTodo, type Todo } from '@/entities/todo'
+import { getTodosByUser, ListItem, patchTodo, type Todo } from '@/entities/todo'
 import { userStore } from '@/shared/store'
 import { onMounted, ref } from 'vue'
 
@@ -29,30 +29,37 @@ onMounted(() => updateTodos())
 </script>
 
 <template>
-  <q-list padding>
-    <q-expansion-item :default-opened="doneOpened" label="Undone todos">
-      <ItemListTodo
-        v-for="todo in todos.filter((t) => !t.isDone)"
-        :key="todo.id"
-        :todo="todo"
-        v-model:is-done="todo.isDone"
-        @update:is-done="(isDone) => handleDoneUpdate(todo.id, isDone)"
-        @show-info="emits('showInfo', todo.id)"
-      />
-    </q-expansion-item>
-  </q-list>
-  <q-list v-show="todos.find((t) => t.isDone)">
-    <q-expansion-item :default-opened="undoneOpened" label="Done todos">
-      <ItemListTodo
-        v-for="todo in todos.filter((t) => t.isDone)"
-        :key="todo.id"
-        :todo="todo"
-        v-model:is-done="todo.isDone"
-        @update:is-done="(isDone) => handleDoneUpdate(todo.id, isDone)"
-        @show-info="emits('showInfo', todo.id)"
-      />
-    </q-expansion-item>
-  </q-list>
+  <q-scroll-area visible class="scroll">
+    <q-list padding>
+      <q-expansion-item :default-opened="doneOpened" label="Undone todos">
+        <ListItem
+          v-for="todo in todos.filter((t) => !t.isDone)"
+          :key="todo.id"
+          :todo="todo"
+          v-model:is-done="todo.isDone"
+          @update:is-done="(isDone) => handleDoneUpdate(todo.id, isDone)"
+          @show-info="emits('showInfo', todo.id)"
+        />
+      </q-expansion-item>
+    </q-list>
+    <q-list padding v-show="todos.find((t) => t.isDone)">
+      <q-expansion-item :default-opened="undoneOpened" label="Done todos">
+        <ListItem
+          v-for="todo in todos.filter((t) => t.isDone)"
+          :key="todo.id"
+          :todo="todo"
+          v-model:is-done="todo.isDone"
+          @update:is-done="(isDone) => handleDoneUpdate(todo.id, isDone)"
+          @show-info="emits('showInfo', todo.id)"
+        />
+      </q-expansion-item>
+    </q-list>
+  </q-scroll-area>
 </template>
 
-<style scoped></style>
+<style scoped>
+.scroll {
+  height: calc(100vh - 50px - 36px);
+  max-width: 100%;
+}
+</style>

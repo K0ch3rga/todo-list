@@ -1,6 +1,6 @@
 import DescriptionCard from './ui/DescriptionCard.vue'
-import ItemListTodo from './ui/ItemListTodo.vue'
+import ListItem from './ui/ListItem.vue'
 
 export type { Todo } from './model/Todo'
 export { getTodosByUser, addTodo, patchTodo, getTodoById } from './api/todo'
-export { DescriptionCard, ItemListTodo }
+export { DescriptionCard, ListItem }
